@@ -21,9 +21,11 @@ jobs:
         with: { workspaces: src-tauri }
       - run: npm ci
       - run: npm test
+      - name: Подготовить www/ (нужен для компиляции Tauri)
+        run: npm run build:www
       - name: Проверка Rust-кода
         working-directory: src-tauri
-        run: cargo check --locked || cargo check
+        run: cargo check
       - name: Сборка MSI/NSIS
         run: npx tauri build
       - name: Собрать артефакты с понятными именами
