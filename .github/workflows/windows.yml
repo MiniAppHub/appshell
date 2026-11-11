@@ -1,0 +1,46 @@
+name: windows
+on:
+  push:
+    branches: [main]
+    tags: ['v*']
+  pull_request:
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+jobs:
+  msi:
+    runs-on: windows-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with: { node-version: 20, cache: npm }
+      - uses: dtolnay/rust-toolchain@stable
+      - uses: swatinem/rust-cache@v2
+        with: { workspaces: src-tauri }
+      - run: npm ci
+      - run: npm test
+      - name: Проверка Rust-кода
+        working-directory: src-tauri
+        run: cargo check --locked || cargo check
+      - name: Сборка MSI/NSIS
+        run: npx tauri build
+      - name: Собрать артефакты с понятными именами
+        shell: bash
+        run: |
+          V=$(node -p "require('./package.json').version")
+          mkdir -p dist-out
+          cp src-tauri/target/release/bundle/msi/*.msi "dist-out/MiniAppHub-${V}.msi" 2>/dev/null || true
+          cp src-tauri/target/release/bundle/nsis/*-setup.exe "dist-out/MiniAppHub-${V}-setup.exe" 2>/dev/null || true
+          ls -la dist-out
+      - uses: actions/upload-artifact@v4
+        with:
+          name: MiniAppHub-windows
+          path: dist-out/*
+      - name: Релиз (только по тегу v*)
+        if: startsWith(github.ref, 'refs/tags/v')
+        uses: softprops/action-gh-release@v2
+        with:
+          files: dist-out/*
+          generate_release_notes: true

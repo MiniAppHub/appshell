@@ -1,0 +1,6 @@
+node_modules/
+www/
+android/
+src-tauri/target/
+dist-out/
+*.apk

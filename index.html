@@ -12,14 +12,37 @@
 <body>
 <header class="bar">
   <span class="brand">MiniAppHub</span>
+  <nav class="tabs" role="tablist">
+    <button class="tab on" data-view="home" role="tab">Приложения</button>
+    <button class="tab" data-view="store" role="tab">Магазин</button>
+    <button class="tab" data-view="settings" role="tab">Настройки</button>
+  </nav>
   <span id="status" class="status"></span>
 </header>
 
-<main id="home" class="home">
-  <section>
-    <h2>Приложения</h2>
-    <div id="launcher" class="grid"></div>
-    <p id="empty" class="muted" hidden>Пока пусто. Установите приложение из каталога.</p>
+<main id="home" class="view">
+  <div id="launcher" class="grid"></div>
+  <p id="empty" class="muted" hidden>Пока пусто. Откройте «Магазин», чтобы установить приложение.</p>
+</main>
+
+<main id="store" class="view" hidden>
+  <input id="q" class="search" type="search" placeholder="Поиск приложений" aria-label="Поиск">
+  <div id="catalog" class="list"></div>
+  <p id="store-msg" class="muted" hidden></p>
+</main>
+
+<main id="settings" class="view" hidden>
+  <form id="settings-form" class="form">
+    <label>Адрес каталога<input name="catalogUrl" type="url" required></label>
+    <label>Канал обновлений
+      <select name="updateChannel"><option value="stable">stable</option><option value="beta">beta</option></select>
+    </label>
+    <button class="btn" type="submit">Сохранить</button>
+    <p id="settings-msg" class="muted" hidden></p>
+  </form>
+  <section class="about">
+    <p>Оболочка <span id="ver"></span></p>
+    <button id="reset-btn" class="btn ghost" type="button">Удалить все установленные приложения</button>
   </section>
 </main>
 
@@ -31,7 +54,7 @@
   <iframe id="frame" sandbox="allow-scripts allow-forms allow-downloads" title="mini-app"></iframe>
 </section>
 
-<div id="update" class="update" hidden>
+<div id="update" class="toast" hidden>
   <span id="update-text">Доступна новая версия</span>
   <button id="update-btn" class="btn">Обновить</button>
 </div>

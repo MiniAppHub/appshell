@@ -8,9 +8,9 @@
  * @property {string} id       author.app-name
  * @property {string} name
  * @property {string} version
- * @property {string} url      адрес mapp.manifest.json или корня приложения
+ * @property {string} url      адрес корня запускаемого приложения
  * @property {string[]} permissions
- * @property {string} [icon]
+ * @property {string|null} [icon]
  */
 
 const KEY = 'miniapphub.registry';
