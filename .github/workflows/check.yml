@@ -1,0 +1,16 @@
+name: check
+on:
+  pull_request:
+  push:
+    branches: [main]
+jobs:
+  syntax:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with: { node-version: 20 }
+      - name: Синтаксис ES-модулей
+        run: |
+          set -e
+          find src -name '*.js' -print0 | xargs -0 -I{} sh -c 'node --check --input-type=module < "{}"'

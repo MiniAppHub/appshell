@@ -1,0 +1,23 @@
+*{box-sizing:border-box}
+html,body{height:100%;margin:0}
+body{font:15px/1.5 var(--font);background:var(--bg);color:var(--text);display:flex;flex-direction:column;padding-bottom:env(safe-area-inset-bottom)}
+.bar{display:flex;align-items:center;justify-content:space-between;padding:14px 20px;padding-top:calc(14px + env(safe-area-inset-top));border-bottom:1px solid var(--line)}
+.brand{font-weight:700;letter-spacing:-.01em}
+.status{color:var(--muted);font-size:13px}
+.home{flex:1;overflow:auto;padding:20px}
+h2{font-size:16px;margin:4px 0 14px;color:var(--muted);font-weight:600}
+.grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(96px,1fr));gap:var(--gap)}
+.tile{position:relative;background:none;border:0;color:var(--text);display:flex;flex-direction:column;align-items:center;gap:8px;cursor:pointer;font:inherit;padding:6px}
+.tile .ico{width:60px;height:60px;border-radius:18px;background:linear-gradient(135deg,var(--accent),var(--accent-2));display:grid;place-items:center;font-size:22px;font-weight:700;color:#fff;box-shadow:var(--shadow)}
+.tile .label{font-size:12px;max-width:96px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.badge{position:absolute;top:2px;right:14px;background:var(--danger);color:#fff;font-size:11px;min-width:18px;height:18px;border-radius:9px;display:grid;place-items:center;padding:0 5px}
+.muted{color:var(--muted)}
+.stage{position:fixed;inset:0;display:flex;flex-direction:column;background:var(--bg);z-index:10}
+.stage[hidden]{display:none}
+.stage-bar{display:flex;align-items:center;gap:12px;padding:10px 14px;padding-top:calc(10px + env(safe-area-inset-top));border-bottom:1px solid var(--line)}
+.stage-title{font-weight:600}
+.icon-btn{background:var(--surface-2);border:1px solid var(--line);color:var(--text);width:36px;height:36px;border-radius:var(--radius-sm);cursor:pointer;font-size:16px}
+#frame{flex:1;border:0;width:100%;background:var(--bg)}
+.update{position:fixed;left:50%;bottom:calc(16px + env(safe-area-inset-bottom));transform:translateX(-50%);display:flex;gap:12px;align-items:center;background:var(--surface);border:1px solid var(--line);box-shadow:var(--shadow);border-radius:var(--radius);padding:10px 12px 10px 16px;z-index:20}
+.update[hidden]{display:none}
+.btn{background:var(--accent);color:#fff;border:0;border-radius:var(--radius-sm);padding:8px 14px;font:inherit;font-weight:600;cursor:pointer}
